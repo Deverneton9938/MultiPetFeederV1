@@ -1,0 +1,44 @@
+[
+
+    {
+        "name": "Mr. Meow Meows",
+        "rfidTag": "16:00:C3:01",
+        "stepsToDispense": 700,
+        "feedingWindows":
+        [
+           {    "startHour1": 12,
+                "startMinute1": 45,
+                "endHour1": 13,
+                "endMinute1": 0
+            },
+            {   "startHour2": 18,
+                "startMinute2": 0,
+                "endHour2": 19,
+                "endMinute2": 0
+            }
+
+        ],
+        
+        "hasEatenWindow1": false,
+        "hasEatenWindow2": false,
+        "stepperDispensed1": false,
+        "stepperDispensed2": false
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]

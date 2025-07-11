@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "algorithm": "cpp",
+        "esp32-hal.h": "c",
+        "bitset": "cpp"
+    }
+}

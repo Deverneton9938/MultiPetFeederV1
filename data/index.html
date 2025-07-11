@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pet Feeder Control Panel</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    h1 { color: #333; }
+    input, button { margin: 5px; }
+    textarea { width: 400px; height: 200px; }
+    pre { background: #f4f4f4; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🐾 Pet Feeder Control Panel</h1>
+
+  <h2>📋 Current Pets</h2>
+  <button onclick="getPets()">Refresh Pets</button>
+  <pre id="petsList"></pre>
+
+  <h2>➕ Add Pet</h2>
+  <textarea id="addPetData">{
+  "name": "New Pet",
+  "rfidTag": "AA:BB:CC:DD",
+  "stepsToDispense": 500,
+  "feedingWindows": [
+    {"startHour1":6,"startMinute1":0,"endHour1":7,"endMinute1":0},
+    {"startHour2":18,"startMinute2":0,"endHour2":19,"endMinute2":0}
+  ]
+}</textarea><br>
+  <button onclick="addPet()">Add Pet</button>
+
+  <h2>❌ Delete Pet</h2>
+  <input id="deleteRFID" placeholder="RFID Tag to delete">
+  <button onclick="deletePet()">Delete Pet</button>
+
+  <script>
+    function getPets() {
+      fetch('/getPets')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('petsList').innerText = JSON.stringify(data, null, 2);
+        });
+    }
+
+    function addPet() {
+      const jsonData = document.getElementById('addPetData').value;
+      fetch('/addPet', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: jsonData
+      })
+      .then(res => res.json())
+      .then(alertData => alert(JSON.stringify(alertData)))
+      .then(getPets);
+    }
+
+    function deletePet() {
+      const rfid = document.getElementById('deleteRFID').value;
+      fetch('/deletePet', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({"rfidTag": rfid})
+      })
+      .then(res => res.json())
+      .then(alertData => alert(JSON.stringify(alertData)))
+      .then(getPets);
+    }
+  </script>
+</body>
+</html>
